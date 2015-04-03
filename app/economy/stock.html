@@ -1,0 +1,44 @@
+
+<md-content style="height: 600px;">
+    <section>
+        <md-subheader class="md-primary">Index Analyze</md-subheader>
+        <md-list layout="column">
+            <md-item ng-repeat="blog in blogs" ng-click="openBlog(blog.id)">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <h3>{{blog.date}}</h3>
+                        <h4>{{blog.name}}</h4>
+                        <p>
+                            {{blog.summary}}
+                        </p>
+{{blogs[0].tags}}
+                        <md-chips
+                                ng-model="blogs[0].tags"
+                                readonly="true"></md-chips>
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </section>
+    <section>
+        <md-subheader class="md-warn">Late Messages</md-subheader>
+        <md-list layout="column">
+            <md-item ng-repeat="blog in blogs">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <h3>{{blog.date}}</h3>
+                        <h4>{{blog.name}}</h4>
+                        <p>
+                            {{blog.summary}}
+                        </p>
+
+                        <md-chips
+                                ng-model="blog.tags"
+                                readonly="true"></md-chips>
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </section>
+
+</md-content>

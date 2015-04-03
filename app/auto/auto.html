@@ -1,0 +1,42 @@
+
+<div class="alert alert-info" role="alert">
+    <span ><strong>Summary:</strong> Shanghai had got <span class="glyphicon glyphicon-yen"></span> <strong>{{totalMoney|currency:" ":0}}</strong></span>
+    by auctioned <strong>{{totalCars|currency:" ":0}}</strong> plates from 01/2002 to now.
+
+</div>
+
+
+
+<md-switch ng-model="isYear" aria-label="category" ng-change="changeCategory()">
+    {{ category }}
+</md-switch>
+
+
+<div id="autochart" style="width:100%;height:500px">
+
+</div>
+
+<md-switch ng-model="showDetail" aria-label="detail">
+    Detail
+</md-switch>
+<table ng-if="showDetail" class="table table-bordered table-hover ">
+    <thead>
+    <tr class="all-sortable">
+        <th ng-click="predicate ='auxDate'; reverse=!reverse">Date</th>
+        <th ng-click="predicate ='size'; reverse=!reverse">Size</th>
+        <th ng-click="predicate ='avgPrice'; reverse=!reverse">Price(avg)&yen</th>
+        <th ng-click="predicate ='minPrice'; reverse=!reverse">Price(min)&yen</th>
+        <th ng-click="predicate ='applicants'; reverse=!reverse">Applicants</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr  ng-repeat="au in autodataDisplay | orderBy:predicate:reverse" >
+        <td>{{au.auxDate}}</td>
+        <td>{{au.size}}</td>
+        <td>{{au.avgPrice}}</td>
+        <td>{{au.minPrice}}</td>
+        <td>{{au.applicants}}</td>
+    </tr>
+</table>
+

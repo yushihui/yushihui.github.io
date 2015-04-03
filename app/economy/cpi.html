@@ -1,0 +1,63 @@
+
+<div id="cpichart" style="width:98%;height:500px">
+
+</div>
+<md-button ng-click="summary('fmm')" class="md-raised md-primary">Food(YoY)</md-button>
+<md-button ng-click="summary('fyy')" class="md-raised md-primary">Food(YoY)</md-button>
+<md-button ng-click="summary('amm')" class="md-raised md-primary">All(MoM)</md-button>
+<md-button ng-click="summary('ayy')" class="md-raised md-primary">All(YoY)</md-button>
+<md-button ng-click="overall()" class="md-raised md-primary">Overall</md-button>
+
+<hr/>
+<md-switch ng-model="showDetail" aria-label="detail">
+    Detail
+</md-switch>
+
+<div ng-if="showDetail">
+<span  style="max-width: 200px;display:inline" class="pull-right">
+            <md-input-container style="max-width: 200px;padding-bottom: 2px;">
+                <label>search like 2015-01</label>
+                <input ng-model="query.date" type="search">
+            </md-input-container>
+    </span>
+
+    <table  class="table table-bordered table-hover ">
+    <thead>
+    <tr >
+        <th colspan="2" style="text-align: center">Overview</th>
+        <th colspan="2" style="text-align: center">All</th>
+        <th colspan="2" style="text-align: center">Food</th>
+    </tr>
+    <tr class="all-sortable">
+        <th ng-click="predicate ='country'; reverse=!reverse">Country</th>
+        <th ng-click="predicate ='date'; reverse=!reverse">Date</th>
+        <th ng-click="predicate ='amm'; reverse=!reverse" title="month on month">MoM
+            <!--<div layout>-->
+                <!--<div flex="10" layout layout-align="center center">-->
+                    <!--<span>MoM</span>-->
+                <!--</div>-->
+                <!--<md-slider flex ng-model="color.blue" md-discrete  min="-1" max="1" step="0.1" aria-label="rating"  class="md-primary">-->
+                <!--</md-slider>-->
+                <!--</div>-->
+
+        <th ng-click="predicate ='ayy'; reverse=!reverse" title="all year on year">YoY</th>
+
+        <th ng-click="predicate ='fmm'; reverse=!reverse" title="food month on month">MoM</th>
+        <th ng-click="predicate ='fyy'; reverse=!reverse" title="month on month">YoY</th>
+        <!--<th ng-click="predicate ='avgPrice'; reverse=!reverse" title="year on year">YoY</th>-->
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr  ng-repeat="cpi in cpis |filter:query | orderBy:predicate:reverse" >
+        <td>China</td>
+        <td>{{cpi.date}}</td>
+        <td>{{cpi.amm}}</td>
+        <td>{{cpi.ayy}}</td>
+        <td>{{cpi.fmm}}</td>
+        <td>{{cpi.fyy}}</td>
+        <!--<td>{{au.avgPrice}}</td>-->
+    </tr>
+</table>
+</div>

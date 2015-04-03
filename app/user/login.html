@@ -1,0 +1,34 @@
+<md-dialog aria-label="Login" class="dialogdemoBasicUsage">
+  <md-content>
+   <md-subheader class="md-sticky-no-effect">Login</md-subheader>
+
+   <form name="userForm">
+   	 <div layout layout-sm="column">
+      <md-input-container flex>
+        <label>Email</label>
+        <input ng-model="user.email" >
+      </md-input-container>
+
+        <md-input-container flex>
+          <label>Password</label>
+          <input type="password" ng-model="user.pwd">
+        </md-input-container>
+</div>
+
+       </form>
+
+
+  </md-content>
+  <div class="md-actions" layout="row">
+<!--     <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" hide show-md>
+      More on Wikipedia
+    </md-button> -->
+    <span flex></span>
+    <md-button ng-click="answer('not useful')">
+     Cancel
+    </md-button>
+    <md-button ng-click="answer('useful')" class="md-primary">
+      Login
+    </md-button>
+  </div>
+</md-dialog>

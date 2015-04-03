@@ -1,0 +1,55 @@
+<md-dialog aria-label="Sign Up" class="dialogdemoBasicUsage">
+  <md-content>
+<md-subheader class="md-sticky-no-effect">Sign Up</md-subheader>
+   <form name="userForm">
+      <md-input-container flex>
+        <label>Company *</label>
+        <input ng-model="user.company" >
+      </md-input-container>
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>First Name</label>
+          <input ng-model="user.firstName">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Last Name</label>
+          <input ng-model="theMax">
+        </md-input-container>
+      </div>
+       <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Password</label>
+          <input type="password" ng-model="user.pwd">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Confirm</label>
+          <input  type="password" ng-model="user.confirm">
+        </md-input-container>
+      </div>
+             <div layout layout-sm="column">
+      <md-input-container flex>
+        <label>Email</label>
+        <input type="email" ng-model="user.email">
+      </md-input-container>
+       </form>
+        <md-input-container flex>
+          <label>Phone</label>
+          <input ng-model="user.phone">
+        </md-input-container>
+      </div>
+
+
+  </md-content>
+  <div class="md-actions" layout="row">
+<!--     <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" hide show-md>
+      More on Wikipedia
+    </md-button> -->
+    <span flex></span>
+    <md-button ng-click="answer('not useful')">
+     Cancel
+    </md-button>
+    <md-button ng-click="answer('useful')" class="md-primary">
+      Save
+    </md-button>
+  </div>
+</md-dialog>
