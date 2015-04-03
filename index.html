@@ -1,2 +1,147 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en" ng-app="xchartApp">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!--<link rel="stylesheet" href="/app/static/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!--   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css"> -->
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.7.1/angular-material.min.css">
+    <!--<link rel="stylesheet" href="/app/static/css/angular-material.min.css">-->
 
+    <link rel="stylesheet" href="/app/static/css/xc.css">
+</head>
+<body layout="row">
+
+<md-sidenav layout="column" hide-smstyle="overflow: hidden; display: flex;" class="site-sidenav md-sidenav-left md-whiteframe-z2 ng-isolate-scope md-locked-open md-closed" md-component-id="left"
+            md-is-locked-open="$media('gt-sm')" tabindex="-1">
+
+    <md-toolbar class="md-default-theme">
+        <h1 class="md-toolbar-tools">
+            <a ng-href="/" layout="row" flex="" href="/">
+                <!--<img src="/app/img/empirix.gif"/>-->
+                <div style="line-height:40px; text-indent: 15px;">Data center</div>
+            </a>
+        </h1>
+    </md-toolbar>
+
+    <md-content style="overflow: auto;" class="md-default-theme">
+        <md-list>
+            <md-item>
+                <md-item-content>
+
+                    <div class="md-tile-content">
+                        <a ui-sref="economy">
+                            <md-button>
+                                <span class="glyphicon glyphicon-usd"></span>
+                                <span class="md-inline-list-icon-label">Economy</span>
+
+                            </md-button>
+                        </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+            <md-item>
+                <md-item-content ng-click="openItem('Web')">
+                    <!--             	<div class="md-tile-left">
+                                      <md-button class="md-fab md-primary product" md-ripple-size="auto" aria-label="">
+                                          <span class="glyphicon glyphicon-globe"></span>
+                                      </md-button>
+                                     </div> -->
+                    <div class="md-tile-content">
+                        <a ui-sref="web">
+                            <md-button>
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                <span class="md-inline-list-icon-label">Web</span>
+
+                            </md-button>
+                        </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+            <md-item>
+                <md-item-content ng-click="selectProduct='Auto'">
+                    <!--            	<div class="md-tile-left">
+                                     <md-button class="md-fab md-primary product" md-ripple-size="auto" aria-label="">
+                                         <span class="glyphicon glyphicon-phone"></span>
+                                     </md-button>
+                                    </div> -->
+                    <div class="md-tile-content">
+                        <a ui-sref="auto">
+                        <md-button>
+                            <span class="glyphicon glyphicon-cd"></span>
+                            <span class="md-inline-list-icon-label">Auto</span>
+
+                        </md-button>
+                            </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+
+        </md-list>
+    </md-content>
+</md-sidenav>
+
+<div layout="column" role="main" flex ng-controller="homeCtrl">
+
+    <md-toolbar class="md-default-theme">
+
+        <div class="md-toolbar-tools">
+            <md-button hide-gt-sm ng-click="openLeft()">
+                <span class="glyphicon glyphicon-align-justify"></span>
+
+            </md-button>
+
+            <span ng-init="selectProduct='Home'">{{selectProduct}}</span>
+            <!-- fill up the space between left and right area -->
+            <span flex></span>
+            <md-button ng-if="username!=='Admin'" ng-click="login($event)">
+                <span class="glyphicon glyphicon-lock top"></span>
+                Login(Guest)
+            </md-button>
+            <md-button ng-if="username==='Admin'">
+            <span class="glyphicon glyphicon-user top" ></span>
+              {{username}}
+            </md-button>
+            <md-button ng-if="username==='Admin'" ng-click="logout()">
+                <span class="glyphicon glyphicon-log-out top" title="logout"></span>
+
+            </md-button>
+            <!--<md-button ng-click="signup($event)">-->
+                <!--<span class="glyphicon glyphicon-user top" ></span>-->
+                <!--Sign Up-->
+            <!--</md-button>-->
+
+
+        </div>
+    </md-toolbar>
+
+    <md-progress-linear md-mode="indeterminate" id="loading" ></md-progress-linear>
+    <md-content ui-view style="margin:16px 10px 10px 10px;" md-scroll-y flex>
+
+
+
+    </md-content>
+
+
+
+</div>
+
+<!-- Angular Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-route.min.js"></script>
+<script src="/app/static/js/angular-ui-route.min.js"></script>
+<script src="/app/components/crossfilter/crossfilter.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.js"></script>
+<script src="/app/components/amcharts/amcharts.js"></script>
+<script src="/app/components/amcharts/serial.js"></script>
+<script src="/app/app.js"></script>
+<script src="/app/home/home.js"></script>
+<script src="/app/auto/auto.js"></script>
+<script src="/app/economy/cpi.js"></script>
+</body>
+</html>
