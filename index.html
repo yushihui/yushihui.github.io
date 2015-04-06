@@ -9,6 +9,7 @@
     <!--<link rel="stylesheet" href="/app/static/css/angular-material.min.css">-->
 
     <link rel="stylesheet" href="/app/static/css/xc.css">
+    <link href="/app/components/prism/prism.css" rel="stylesheet" />
 </head>
 <body layout="row">
 
@@ -48,10 +49,10 @@
                                       </md-button>
                                      </div> -->
                     <div class="md-tile-content">
-                        <a ui-sref="web">
+                        <a ui-sref="pm">
                             <md-button>
                                 <span class="glyphicon glyphicon-cloud"></span>
-                                <span class="md-inline-list-icon-label">Web</span>
+                                <span class="md-inline-list-icon-label">PM2.5</span>
 
                             </md-button>
                         </a>
@@ -94,18 +95,18 @@
             <span ng-init="selectProduct='Home'">{{selectProduct}}</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <md-button ng-if="username!=='Admin'" ng-click="login($event)">
-                <span class="glyphicon glyphicon-lock top"></span>
-                Login(Guest)
-            </md-button>
-            <md-button ng-if="username==='Admin'">
+            <!--<md-button ng-if="username!=='Admin'" ng-click="login($event)">-->
+                <!--<span class="glyphicon glyphicon-lock top"></span>-->
+                <!--Login(Guest)-->
+            <!--</md-button>-->
+            <md-button>
             <span class="glyphicon glyphicon-user top" ></span>
-              {{username}}
+                <a href="https://github.com/yushihui">shihui</a>
             </md-button>
-            <md-button ng-if="username==='Admin'" ng-click="logout()">
-                <span class="glyphicon glyphicon-log-out top" title="logout"></span>
+            <!--<md-button ng-if="username==='Admin'" ng-click="logout()">-->
+                <!--<span class="glyphicon glyphicon-log-out top" title="logout"></span>-->
 
-            </md-button>
+            <!--</md-button>-->
             <!--<md-button ng-click="signup($event)">-->
                 <!--<span class="glyphicon glyphicon-user top" ></span>-->
                 <!--Sign Up-->
@@ -126,6 +127,8 @@
 
 </div>
 
+
+
 <!-- Angular Material Dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
@@ -143,5 +146,6 @@
 <script src="/app/home/home.js"></script>
 <script src="/app/auto/auto.js"></script>
 <script src="/app/economy/cpi.js"></script>
+<script src="/app/components/prism/prism.js"></script>
 </body>
 </html>
