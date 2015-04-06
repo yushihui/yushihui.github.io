@@ -1,0 +1,120 @@
+
+<h3> Use R analyze PM2.5 </h3>
+<em>data from us consulates</em>
+<pre><code class="language-r"> R code:
+    xdataDB = dbConnect(MySQL(), user='***', password='***', dbname='****', host='****')
+    allAir=dbGetQuery(xdataDB,statement="select airval,city,state from air_info")
+</code></pre>
+
+<md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_bar.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Summary of each City</h2>
+        <p>
+            The top graph shows the distribution of Shanghai Composite index open price(%) and end price(%)
+        </p>
+        R code:
+        <pre><code class="language-r">
+            generateBarWithFacet<-function(){
+                ggplot(bardata, aes(x=state,y=avCount))+ geom_bar(stat="identity")+facet_wrap(~city)
+            }
+            0->Good
+            1->Moderate
+            2->Sensitive
+            3->Unhealthy
+            4->Very Unhealthy
+            5->Hazardous
+            6->Beyond
+        </code></pre>
+
+        <img src="" alt=""/>
+
+    </md-card-content>
+
+</md-card>
+<md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_density_facets.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Distribution and average value</h2>
+        <p>
+           from this chart: <br/>
+            Beijing and Chengdu are similar; Shanghai and Guangzhou are similar
+        </p>
+        R code:
+        <pre><code class="language-r">
+drawHistogramWithFacet<-function(){
+    ggplot(allAir, aes(x=airval)) + geom_histogram(binwidth=10, alpha=.5, position="identity")+
+    geom_vline(data=csb, aes(xintercept=allAir.mean,  colour=city),linetype="dashed", size=1)+facet_wrap(~city)
+}
+        </code></pre>
+
+
+    </md-card-content>
+</md-card>
+<md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_box_jitter.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Box Chart with Jitter</h2>
+        <p>
+            <em>I random select 20K samples from the data source</em>
+        </p>
+        R code:
+        <pre><code class="language-r">
+generateRNDJitter<-function(sampleVal){
+    ggplot(allAir, aes(x=city, y=airval, fill=city)) + geom_boxplot()+geom_jitter(data=allAir[sample(nrow(allAir),sampleVal),])
+}
+        </code></pre>
+
+
+    </md-card-content>
+</md-card>
+<md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_box_no_jitter.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Box Chart NO Jitter</h2>
+        <p>
+            <em>Box chart </em>
+        </p>
+        R code:
+        <pre><code class="language-r">
+generateBox<-function(){
+    ggplot(allAir, aes(x=city, y=airval, fill=city)) + geom_boxplot()
+
+}
+        </code></pre>
+
+
+    </md-card-content>
+</md-card>
+<md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_hour.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Hourly Chart</h2>
+        <p>
+            <ul>
+        <li>average value of each clock.</li>
+        <li>Beijing: <strong style="color: red">[16:00,00:00] </strong> ascent,  <strong style="color: green">[00:00-16:00] </strong> decent;good time is 16:00,bad time is 00:00</li>
+        <li>Shanghai:<strong style="color: red">[17:00,20:00]</strong> ascent,<strong style="color: green"> [20:00,03:00] </strong> decent, <strong style="color: red">[03:00,09:00]</strong> ascent again,[09:00,17:00] on the same level</li>
+        <li>Guangzhou: is very similar to shanghai</li>
+        <li><strong style="color: red">Chengdu:[06:00-10:00] </strong> ascend, <strong style="color: green">[10:00,18:00] </strong> decent, <strong style="color: red">[18:00,23:00] </strong> ascend, [23:00,06:00} on the same level</li>
+    </ul>
+
+
+        </p>
+        R code:
+        <pre><code class="language-r">
+hour_air=dbGetQuery(xdataDB,statement="select city,time(pdate) as tm, avg(airval) as av from air_info  group by city, time(pdate) ")
+hour_air$tm=as.POSIXct(strptime(hour_air$tm, "%H:%M:%OS"))
+
+drawHourData<-function(){
+    ggplot(hour_air, aes(tm, av,group=city,colour=city)) + geom_line()+geom_point()
+}
+        </code></pre>
+
+
+    </md-card-content>
+</md-card>
+
+<script>
+    Prism.highlightAll();
+</script>
