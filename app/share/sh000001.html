@@ -3,18 +3,24 @@
     <md-card-content>
         <h2 class="md-title">Shanghai Composite Index</h2>
         <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+            The top graph shows the distribution of Shanghai Composite index open price(%) and end price(%)
         </p>
+
+        <pre><code class="language-r"> R code:
+        validSh01=validSh01[validSh01$p_chg<10.5&validSh01$p_chg>-10.5,]
+        max(validSh01$p_chg)
+        [1] 10.2622//最大值
+        mean(validSh01$p_chg)
+        [1] 0.002082318//均值
+        sd(validSh01$p_chg)
+        [1] 1.974956//标准差
+        mean(abs(validSh01$p_chg))
+        [1] 1.329409 //平均振幅
+    </code></pre>
+
     </md-card-content>
 </md-card>
-<md-card style="max-width: 800px;">
-    <img src="/app/static/img/sh000001_1.png" alt="sha000001">
-    <md-card-content >
-        <h2 class="md-title">Shanghai Composite Index</h2>
-        <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-        </p>
-    </md-card-content>
-</md-card>
+
+<script>
+    Prism.highlightAll();
+</script>
