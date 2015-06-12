@@ -1,7 +1,7 @@
 /**
  * Created by shyu on 3/2/2015.
  */
-var app = angular.module('xchartApp', ['ngMaterial','ui.router','auto','economy','ngRoute']);
+var app = angular.module('xchartApp', ['ngMaterial','ui.router','auto','economy','ngRoute','graphModule','tricksModule']);
 app.factory('loadHttpInterceptor', function ($q, $window) {
     return{
 
@@ -41,11 +41,49 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             templateUrl: "/app/auto/auto.html",
             controller: 'autoCtrl'
         })
-        .state('economy', {
+        .state('tks', {
+            url: "/tks",
+            templateUrl: "/app/tricks/tks.html"
+        })
+        .state('tks.list', {
+            url: "/tks/list",
+            templateUrl: "/app/tricks/list.html",
+            controller: 'tricksCtrl'
+        })
+        .state('tks.tk', {
+            url: "/:id",
+            templateUrl: function ($stateParams){
+                return '/app/tricks/' + $stateParams.id + '.html';
+            },
+            controller: 'tkCtrl'
 
+        })
+        .state('pm', {
+            url: "/pm",
+            templateUrl: "/app/pm/pm.html"
+        })
+        .state('d3', {
+            url: "/d3",
+            templateUrl: "/app/d3/list.html"
+        })
+        .state('d3.bpi', {
+            url: "/bpi",
+            templateUrl: "/app/d3/pie_bubble.html",
+            controller:'bubblePiCtrl'
+        })
+        .state('d3.bg', {
+            url: "/bg",
+            templateUrl: "/app/d3/bubbleGroup.html",
+            controller:'bubbleGrpCtrl'
+        })
+        .state('d3.wd', {
+            url: "/wd",
+            templateUrl: "/app/d3/wordStatistic.html",
+            controller:'wdCtrl'
+        })
+        .state('economy', {
             url: "/economy",
             templateUrl: "/app/economy/economy.html"
-
         })
         .state('economy.cpi', {
             url: "/cpi",
@@ -56,6 +94,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             url: "/stock",
             templateUrl: "/app/economy/stock.html",
             controller: 'stockCtrl'
+        })
+        .state('economy.food', {
+            url: "/food",
+            templateUrl: "/app/economy/products.html",
+            controller: 'productsCtrl'
         })
         .state('economy.share', {
             url: "/:id",
@@ -75,7 +118,8 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
         .otherwise('/');
 
 
-}).controller('homeCtrl', ['$scope','$http','$filter','$rootScope','$mdDialog','$window' ,function($scope,$http,$filter,$rootScope,$mdDialog,$window) {
+}).controller('homeCtrl', ['$scope','$http','$filter','$rootScope','$mdDialog','$window' ,'$mdSidenav',function($scope,$http,$filter,$rootScope,$mdDialog,$window,$mdSidenav) {
+    $scope.selectProduct="Home";
     $scope.login = function(ev) {
         console.log("login..");
         $mdDialog.show({
@@ -84,6 +128,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             targetEvent: ev
         })
     };
+
+    $scope.openLeft=function (p) {
+        $scope.selectProduct=p;
+        $mdSidenav('left').toggle();
+    }
     $scope.logout=function(){
         $window.localStorage.removeItem("user");
         $rootScope.isAdmin=false;
