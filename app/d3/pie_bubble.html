@@ -1,0 +1,112 @@
+<style>
+
+    g.arc path {
+        stroke: #828282;
+        stroke-width: 0.5;
+        opacity:0.7
+    }
+    g.node:hover{
+        cursor: pointer;
+        font-size: 16px;
+        fill:#fff
+    }
+    g.arc text {
+        font-size: 10px;
+    }
+    #vw-hoverBox {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+        -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+        box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+        background: #fff;
+        border: 1px solid #ddd;
+        /* width: 180px; */
+        width: 200px;
+        padding: 10px;
+        opacity: .95;
+        -webkit-transition: opacity .2s;
+        -moz-transition: opacity .2s;
+        font-family: Arial,Helvetica,sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        color: #505050;
+    }
+    #vw-hoverBox h3 {
+        font-family: Arial,Helvetica,sans-serif;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 0;
+        color: #222;
+        margin: 0px;
+        font-weight: bold;
+    }
+    #vw-hoverBox .vw-tipHeader {
+        border-bottom: 1px solid #000;
+        padding-bottom: 1px;
+        margin-bottom: 5px;
+        color: #000;
+        clear: both;
+    }
+    .vw-tipRow {
+        /* border-bottom: 1px dotted #ddd; */
+        padding: 0 0 4px;
+        margin-bottom: 4px;
+        height: 14px;
+    }
+    #vw-hoverBox .vw-tipItemValue {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 18px;
+        color: #505050;
+        margin: 0px;
+        float: right;
+        display: inline;
+    }
+    #vw-hoverBox .vw-tipItem {
+        font-size: 12px;
+        line-height: 18px;
+        color: #505050;
+        margin: 0px;
+        float: left;
+    }
+    #vw-hoverBox .overall {
+        font-size: 28px;
+        font-weight: bold;
+        color: #222;
+        padding-right: 12px;
+        float: left;
+        display: inline;
+        line-height: 1.25em;
+
+    }
+    #vw-hoverBox .tip-Caption {
+        font-size: 10px;
+        line-height: 12px;
+        color: #999;
+        text-transform: uppercase;
+        display: inline;
+        margin: 4px 0 0;
+        padding: 0;
+    }
+</style>
+
+<span>
+<bubblepi width="500" height="500" data="data" ></bubblepi>
+</span>
+<span style="margin-left:10px;">
+
+<bubblepi width="400" height="500" data="probdata" ></bubblepi>
+</span>
+
+<div>
+    <word-map width="800" height="500" data="worddata">
+
+    </word-map>
+</div>
+<div id="vw-hoverBox">
+
+</div>
