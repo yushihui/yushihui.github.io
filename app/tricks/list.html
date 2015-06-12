@@ -1,0 +1,29 @@
+
+<md-content style="height: 600px;">
+    <section>
+        <md-subheader class="md-primary"><h3>Programing Tricks</h3></md-subheader>
+        <hr/>
+        <md-list layout="column">
+            <md-item ng-repeat="blog in blogs" ng-click="openBlog(blog.id)">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <h3>{{blog.date}}</h3>
+                        <h3><strong>{{blog.name}}</strong></h3>
+                        <p>
+                            {{blog.summary}}
+                        </p>
+
+                        <md-chips class="md-default-theme">
+
+                                <md-chip ng-repeat="tag in blog.tags "> {{tag}} </md-chip>
+
+                        </md-chips>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </section>
+
+
+</md-content>

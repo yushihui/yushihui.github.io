@@ -1,0 +1,52 @@
+
+<md-card style="max-width: 800px;">
+
+    <md-card-content>
+        <h2 class="md-title">Angular dirty checking</h2>
+        <p>
+            Form pristine& dirty checking
+            the defect was: when you make some change on a form, like change input field, then click discard to roll back to the original status, then you change this field again, then the form should be dirty again
+
+        </p>
+
+        <pre><code class="language-js"> Javascript code:
+            $scope.form.$dirty=false;//wrong
+
+            $scope.form.$setPristine();//correct
+        </code></pre>
+
+    </md-card-content>
+</md-card>
+
+<md-card style="max-width: 800px;">
+
+
+    <md-card-content>
+        <h2 class="md-title">Angular watch </h2>
+        <img class="pull-right" style="padding-left: 3em; padding-bottom: 1em;" src="https://docs.angularjs.org/img/guide/concepts-scope-watch-strategies.png">
+        <p>
+           Form pristine& dirty checking
+           the defect was: when you make some change on a form, like change input field, then click discard to roll back to the original status, then you change this field again, then the form should be dirty again
+
+        </p>
+
+        <pre><code class="language-js"> Javascript code:
+            $scope.form.$dirty=false;//wrong
+
+            $scope.form.$setPristine();//correct
+        </code></pre>
+
+    </md-card-content>
+</md-card>
+
+<br/>
+<md-button class="md-fab md-primary md-mini" aria-label="return" style="margin-left: 8px;" ng-click="toList()">
+    <span class="glyphicon glyphicon-arrow-left" ></span>
+
+</md-button>
+
+
+
+<script>
+    Prism.highlightAll();
+</script>
