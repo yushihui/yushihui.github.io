@@ -211,3 +211,29 @@ tr.all-sortable th{
     background: lightgray;
     opacity: 0.4
 }
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button, .tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+    box-shadow: none;
+    border: none;
+    transform: none;
+    -webkit-transform: none; }
+.tooltipdemoBasicUsage .left {
+    top: 70px !important;
+    left: 56px !important; }
+.tooltipdemoBasicUsage .right {
+    top: 70px !important;
+    right: 56px !important; }
+
+ md-chip {
+    background: rgb(224,224,224);
+    color: rgb(66,66,66);
+}
+md-chip {
+    cursor: default;
+    border-radius: 16px;
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    margin: 8px 8px 0 0;
+    padding: 0 8px 0 12px;
+    float: left;
+}

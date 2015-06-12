@@ -1,7 +1,7 @@
 /**
  * Created by shyu on 3/9/2015.
  */
-angular.module('economy', [])
+angular.module('economy', ['firebase'])
     .factory('cpiService', ['$interval', '$log', function($interval, $log) {
         var chart;
         var _drawSummay=function(data,ele){
@@ -123,8 +123,9 @@ angular.module('economy', [])
                 }
 
             };
-
+            console.log(angular.copy(data).reverse());
             queueDesign["dataProvider"]=angular.copy(data).reverse();
+            console.log(queueDesign);
             chart=AmCharts.makeChart(ele, queueDesign);
         }
         return {
@@ -211,6 +212,8 @@ angular.module('economy', [])
 
         }
     }]).controller("stockCtrl",['$scope','$http','$filter','$state', function($scope,$http,$filter,$state) {
+
+
         var serverUrl="/app/json/share.json";
         $http.get(serverUrl).success(function(result){
             $scope.blogs=result;
@@ -219,4 +222,140 @@ angular.module('economy', [])
         $scope.openBlog=function(bid){
             $state.go('economy.share',{id:bid});
         }
+    }]).controller("productsCtrl",['$scope','$filter','$state','$firebaseObject','$mdDialog', function($scope,$filter,$state,$firebaseObject,$mdDialog) {
+        $scope.colors=["pink","yellow","blue","red","purple","green","lightPurple","yellow","blue"];
+        var ref_category = new Firebase("https://cn-ag-products.firebaseio.com");
+        $scope.products = $firebaseObject(ref_category);
+        var foodref=new Firebase("https://cn-ag-details.firebaseio.com");
+        $scope.FoodDetail=$firebaseObject(foodref);
+        $scope.selection=[];
+        $scope.$watch('products', function (newValue, oldValue) {
+            $scope.selection=[];
+            console.log("change......");
+            if(newValue[0]==null){
+
+            }else{
+                angular.forEach(newValue[0],function(p){
+                    p.col=2;
+                    p.layout="column";
+                    p.row=3*p.products.length;
+                    if(p.products.length<3){
+                        p.row=9;
+                    } else if(p.products.length>12){
+                        p.row=39;
+                    }
+                    angular.forEach(p.products,function(d){
+                        if(d.selected){
+                            $scope.selection.push(d.id);
+                        }
+                    });
+
+                })
+            }
+
+        },true);
+
+        $scope.showReport = function(ev) {
+            console.log("showreport.....");
+            $mdDialog.show({
+                controller: foodChartCtrl,
+                clickOutsideToClose:true,
+                scope:$scope,
+                preserveScope: true,
+                templateUrl: 'app/economy/foodChart.html',
+                parent: angular.element(document.querySelector("#MAIN")),
+                targetEvent: ev
+            })
+        };
+        $scope.processData=function(){
+            var seriesData=[];
+            angular.forEach($scope.selection,function(d){
+                var keepRun=true;
+                angular.forEach($scope.FoodDetail,function(food){
+                    if(keepRun){
+                        if(food.id==d){
+                            keepRun=false;
+                            var fd={name:food.name};
+                            var data=food.result.map(function(fo){
+                                return [Date.parse(fo.d),fo.p]
+                            });
+                            fd.data=data;
+                            seriesData.push(fd);
+
+                        }
+                    }
+
+                });
+            });
+
+
+            var template={
+                chart: {
+                    type: 'spline',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: 'Food Price Comparison',
+                    style: {
+                        display: 'none'
+                    }
+                },
+                subtitle: {
+                    text: 'data from Chinese Ministry of Commerce'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        month: '%b%e-%Y',
+                        year: '%Y'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Price(&yen;)'
+                    },
+                    min: 0
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x:%b%e-%Y}: {point.y:.2f} '
+                },
+
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            enabled: true
+                        }
+                    }
+                },
+                series:seriesData
+
+            };
+            console.log(template);
+
+           $("#FOODCHART").highcharts(template);
+
+        }
+
+
     }])
+
+
+
+function foodChartCtrl($scope, $mdDialog) {
+    //console.log($scope.products);
+    setTimeout($scope.processData,1000);
+  // console.log( $scope.processData());
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+}

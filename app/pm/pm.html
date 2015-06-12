@@ -1,7 +1,7 @@
 
 <h3> Use R analyze PM2.5 </h3>
 <em>data from us consulates</em>
-<pre><code class="language-r"> R code:
+<pre style="max-width: 800px;"><code class="language-r"> R code:
     xdataDB = dbConnect(MySQL(), user='***', password='***', dbname='****', host='****')
     allAir=dbGetQuery(xdataDB,statement="select airval,city,state from air_info")
 </code></pre>
@@ -87,6 +87,23 @@ generateBox<-function(){
     </md-card-content>
 </md-card>
 <md-card style="max-width: 800px;">
+    <img src="/app/static/img/pm/pm_desity.png" alt="pm25">
+    <md-card-content>
+        <h2 class="md-title">Density Chart Comparison</h2>
+        <p>
+            <em>Density chart </em>
+        </p>
+        R code:
+        <pre><code class="language-r">
+drawDensity<-function(){
+ggplot(allAir, aes(x=airval,colour=city,fill=city,alpha=.5)) + geom_density()
+}
+        </code></pre>
+
+
+    </md-card-content>
+</md-card>
+<md-card style="max-width: 800px;">
     <img src="/app/static/img/pm/pm_hour.png" alt="pm25">
     <md-card-content>
         <h2 class="md-title">Hourly Chart</h2>
@@ -117,4 +134,17 @@ drawHourData<-function(){
 
 <script>
     Prism.highlightAll();
+</script>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'shihui';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//shihui.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
 </script>
