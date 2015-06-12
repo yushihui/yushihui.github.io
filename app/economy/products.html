@@ -1,0 +1,66 @@
+<style>
+    gridListdemoBasicUsage md-grid-list {
+        margin: 8px; }
+    md-grid-tile.gray {
+        background: #f5f5f5; }
+    md-grid-tile.green {
+        background: #b9f6ca; }
+    md-grid-tile.yellow {
+        background: rgb(76, 175, 80); }
+    md-grid-tile.blue {
+        background: #80d8ff; }
+    md-grid-tile.purple {
+        background: #b388ff; }
+    md-grid-tile.red {
+        background: #ff8a80; }
+    md-grid-tile.pink {
+        background: #ff80ab; }
+    md-grid-tile.lightPurple {
+        background: #8c9eff; }
+    md-grid-tile {
+        transition: all 400ms ease-out 50ms; }
+    md-checkbox.food{
+        margin:2px;
+    }
+    md-checkbox.food  .md-icon{
+        width: 15px;
+        height: 15px;
+    }
+</style>
+
+<md-content layout-padding  id="MAIN">
+    <!--<md-grid-list-->
+    <!--md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8"-->
+    <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
+    <!--md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">-->
+    <!--<md-grid-tile-->
+    <!--ng-repeat="product in products[0]"-->
+
+    <!--md-colspan-gt-sm="{{product.products.length}}"-->
+    <!--md-rowspan-gt-sm="{{product.products.length}}">-->
+    <!--{{product.name}}-->
+    <!--</md-grid-tile>-->
+    <!--</md-grid-list>-->
+    <md-button class="md-raised md-primary" ng-click="showReport()">History Data</md-button>
+
+    <md-grid-list
+            md-cols-sm="2"  md-cols-lg="8" md-cols-gt-lg="12"
+             md-row-height="10px"
+            md-gutter="10px" md-gutter-gt-sm="8px" >
+        <md-grid-tile class="{{colors[$index]}}"  ng-repeat="product in products[0] track by $index"
+                      md-rowspan="{{product.row}}" md-colspan="{{product.col}}" md-colspan-sm="1">
+            <div layout="{{product.layout}}" style="font-size: 12px;color:#ffffff;top: 2px;">
+
+                <md-checkbox class="food" ng-model="item.selected"  ng-repeat="item in product.products">
+                    {{item.name}}
+                </md-checkbox>
+            </div>
+            <md-grid-tile-footer>
+                <h3>{{product.name}}</h3>
+            </md-grid-tile-footer>
+        </md-grid-tile>
+
+    </md-grid-list>
+
+</md-content>
+
