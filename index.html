@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!--   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css"> -->
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.7.1/angular-material.min.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/angular/bower-material/v0.9.8/angular-material.min.css">
+
     <!--<link rel="stylesheet" href="/app/static/css/angular-material.min.css">-->
 
     <link rel="stylesheet" href="/app/static/css/xc.css">
@@ -25,16 +27,16 @@
         </h1>
     </md-toolbar>
 
-    <md-content style="overflow: auto;" class="md-default-theme">
+    <md-content style="overflow: auto;" class="md-default-theme" ng-controller="homeCtrl">
         <md-list>
             <md-item>
                 <md-item-content>
 
                     <div class="md-tile-content">
-                        <a ui-sref="economy">
+                        <a ui-sref="economy" ng-click="openLeft('Economy')">
                             <md-button>
-                                <span class="glyphicon glyphicon-usd"></span>
-                                <span class="md-inline-list-icon-label">Economy</span>
+                                <span class="glyphicon glyphicon-usd"> Economy </span>
+
 
                             </md-button>
                         </a>
@@ -42,17 +44,13 @@
                 </md-item-content>
             </md-item>
             <md-item>
-                <md-item-content ng-click="openItem('Web')">
-                    <!--             	<div class="md-tile-left">
-                                      <md-button class="md-fab md-primary product" md-ripple-size="auto" aria-label="">
-                                          <span class="glyphicon glyphicon-globe"></span>
-                                      </md-button>
-                                     </div> -->
+                <md-item-content>
+
                     <div class="md-tile-content">
-                        <a ui-sref="pm">
+                        <a ui-sref="pm" ng-click="openLeft()">
                             <md-button>
-                                <span class="glyphicon glyphicon-cloud"></span>
-                                <span class="md-inline-list-icon-label">PM2.5</span>
+                                <span class="glyphicon glyphicon-cloud"> PM2.5 </span>
+
 
                             </md-button>
                         </a>
@@ -61,19 +59,54 @@
             </md-item>
             <md-item>
                 <md-item-content ng-click="selectProduct='Auto'">
-                    <!--            	<div class="md-tile-left">
-                                     <md-button class="md-fab md-primary product" md-ripple-size="auto" aria-label="">
-                                         <span class="glyphicon glyphicon-phone"></span>
-                                     </md-button>
-                                    </div> -->
                     <div class="md-tile-content">
-                        <a ui-sref="auto">
+                        <a ui-sref="auto" ng-click="openLeft()">
                         <md-button>
-                            <span class="glyphicon glyphicon-cd"></span>
-                            <span class="md-inline-list-icon-label">Auto</span>
+                            <span class="glyphicon glyphicon-cd"> Auto</span>
+
 
                         </md-button>
                             </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+            <md-item>
+                <md-item-content ng-click="selectProduct='Algorithm'">
+                    <div class="md-tile-content">
+                        <a ui-sref="algs" ng-click="openLeft()">
+                            <md-button>
+                                <span class="glyphicon glyphicon-knight"> Algorithm</span>
+
+
+                            </md-button>
+                        </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+            <md-item>
+                <md-item-content ng-click="selectProduct='Algorithm'">
+                    <div class="md-tile-content">
+                        <a ui-sref="d3" ng-click="openLeft()">
+                            <md-button>
+                                <span class="glyphicon glyphicon-magnet"> Data Visualization</span>
+
+
+                            </md-button>
+                        </a>
+                    </div>
+                </md-item-content>
+            </md-item>
+
+            <md-item>
+                <md-item-content ng-click="selectProduct='Algorithm'">
+                    <div class="md-tile-content">
+                        <a ui-sref="tks.list" ng-click="openLeft()">
+                            <md-button>
+                                <span class="glyphicon glyphicon-scale"> Tricks</span>
+
+
+                            </md-button>
+                        </a>
                     </div>
                 </md-item-content>
             </md-item>
@@ -88,7 +121,7 @@
 
         <div class="md-toolbar-tools">
             <md-button hide-gt-sm ng-click="openLeft()">
-                <span class="glyphicon glyphicon-align-justify"></span>
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
 
             </md-button>
 
@@ -100,6 +133,14 @@
                 <!--Login(Guest)-->
             <!--</md-button>-->
             <md-button>
+                <md-tooltip>
+                    My Github
+                </md-tooltip>
+                <!--<md-icon md-svg-src=" https://material.angularjs.org/latest/img/icons/github.svg">-->
+
+
+                <!--</md-icon>-->
+
             <span class="glyphicon glyphicon-user top" ></span>
                 <a href="https://github.com/yushihui">shihui</a>
             </md-button>
@@ -138,14 +179,23 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-route.min.js"></script>
 <script src="/app/static/js/angular-ui-route.min.js"></script>
 <script src="/app/components/crossfilter/crossfilter.min.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.js"></script>
+<script src="http://cdn.rawgit.com/angular/bower-material/v0.9.8/angular-material.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
 <script src="/app/components/amcharts/amcharts.js"></script>
 <script src="/app/components/amcharts/serial.js"></script>
+<script src="/app/d3/d3.min.js"></script>
+<script src="/app/d3/d3.word.js"></script>
 <script src="/app/app.js"></script>
 <script src="/app/home/home.js"></script>
 <script src="/app/auto/auto.js"></script>
 <script src="/app/economy/cpi.js"></script>
 <script src="/app/components/prism/prism.js"></script>
+<script src="/app/d3/graph.js"></script>
+<script src="/app/tricks/tricks.js"></script>
 </body>
 </html>
