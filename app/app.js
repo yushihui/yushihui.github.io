@@ -1,7 +1,7 @@
 /**
  * Created by shyu on 3/2/2015.
  */
-var app = angular.module('xchartApp', ['ngMaterial','ui.router','auto','economy','ngRoute','graphModule','tricksModule']);
+var app = angular.module('xchartApp', ['ngAnimate','ngMaterial','ui.router','auto','economy','ngRoute','graphModule','tricksModule']);
 app.factory('loadHttpInterceptor', function ($q, $window) {
     return{
 
@@ -80,6 +80,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             url: "/wd",
             templateUrl: "/app/d3/wordStatistic.html",
             controller:'wdCtrl'
+        })
+        .state('d3.grid', {
+            url: "/grid",
+            templateUrl: "/app/d3/gridList.html",
+            controller:'gridCtrl'
         })
         .state('economy', {
             url: "/economy",
