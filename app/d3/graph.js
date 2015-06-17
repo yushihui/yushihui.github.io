@@ -267,7 +267,7 @@ angular.module('graphModule', [])
                 maxRadius = 8;
 
 
-            var rm = process_data(dataSets);
+            var rm = process_data(dataSets,summary.max, summary.min);
             var color = rm.color; // number of distinct clusters
             var m = rm.clen;
 
@@ -291,13 +291,19 @@ angular.module('graphModule', [])
         return {
             restrict: 'E',
             scope: {
-                data: '='
+                data: '=',
+                summary: '='
 
             },
             replace: false,
             template: '<div id="groupBubble" style="display:inline;width:400px;height:300px;"></div>',
             link: function(scope, element, attrs) {
-                scope.$watch('data', function(updatedValue) {
+                scope.$watchCollection('[data,summary]', function(updatedValue) {
+                    console.log("update.....");
+                    if(updatedValue[0]==null){
+                        return;
+                    }
+                    updatedValue[1]={"isBooleanMetric":true,"mean":0.4444444444444444,"min":0,"max":1,"deviation":0.4987546680538165};
                     var todo = initialize(updatedValue[0], updatedValue[1]);
                     var nodes = todo.nodes;
                     var color = todo.color;
@@ -419,7 +425,22 @@ angular.module('graphModule', [])
                 }, true)
             }
         }
-    }]).controller("bubblePiCtrl",['$scope',function($scope){
+    }]).directive("testGrid", [function() {
+
+        return{
+            restrict: 'E',
+            scope: {
+                data: '='
+            },
+            replace: false,
+            templateUrl: 'app/d3/grid.temp.html',
+            link: function(scope, element, attrs) {
+
+            }
+        }
+
+    }])
+    .controller("bubblePiCtrl",['$scope',function($scope){
         $scope.buildData=function(){
             $scope.data=[];
             for(var i=0;i<50;i++){
@@ -471,9 +492,44 @@ angular.module('graphModule', [])
                 {"text":"physical","size":5},{"text":"behaviour","size":5},{"text":"collinsdictionary","size":5},{"text":"english","size":5},{"text":"time","size":35},
                 {"text":"PESQ is 0","size":35},{"text":"wheels","size":5},{"text":"revelations","size":5},{"text":"minute","size":5},{"text":"acceleration","size":20}
             ];
+            $scope.tests=[];
+            var rnd=function (size) {
+                var num=Math.floor(Math.random() * 1000);
+                var s = num+"";
+                while (s.length < size) s = "0" + s;
+                return s;
+            }
+            var rndSize=function(){
+                return Math.floor(Math.random() * 100)+5
+            }
 
-        }
+            for(var i=0;i<100;i++){
+               $scope.tests.push({text:rnd(3)+"-"+rnd(3)+"-"+rnd(4),size:rndSize()})
+            }
 
-        $scope.buildWordData();
+        }();
+
+       // $scope.buildWordData();
+
+    }]).controller("gridCtrl",['$scope',function($scope){
+        var initialData=function(){
+            $scope.grids=[];
+            for(var i=0;i<100;i++){
+                $scope.grids.push({name:"Test "+i,script:"script"+(i%4), speech:i%4===0,
+                    hammer:"hammerGroup"+(i%3),status:i%5,schedule:"10:00-22:00:1,2,3,4,5,6,7",numbertocall:"978-238-"+Math.floor(Math.random() * 1000)})
+            }
+            console.log($scope.grids);
+
+        }();
+
+    }]).controller("bubbleGrpCtrl",['$scope','$http',function($scope,$http){
+        $scope.summmary={"isBooleanMetric":true,"mean":0.4444444444444444,"min":0,"max":1,"deviation":0.4987546680538165};
+        $http.get("/app/json/bubble.json").success(function(data){
+            $scope.metricData=data;
+
+        })
+
+
+
 
     }])
