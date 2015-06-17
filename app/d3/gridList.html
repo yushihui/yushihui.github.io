@@ -1,0 +1,31 @@
+
+
+    <div layout layout-sm="column">
+        <md-input-container flex>
+            <label>Filter Call number</label>
+            <input ng-model="query">
+        </md-input-container>
+
+            <md-button class=" md-primary" ng-click="sort='status'; reverse=!reverse">sort by Status</md-button>
+
+            <md-button class="md-primary" ng-click="sort='name'; reverse=!reverse">sort by Test Name</md-button>
+
+    </div>
+
+    <!--<span><input type="text" placeholder="Filter Call number" class="form-control" /></span>-->
+
+
+
+
+
+
+
+
+<div class="row">
+
+    <test-grid ng-repeat="grid in grids | filter:query:strict | orderBy:sort:reverse" data="grid"  class="">
+
+    </test-grid>
+
+
+</div>

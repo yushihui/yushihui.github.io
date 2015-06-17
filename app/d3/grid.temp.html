@@ -1,0 +1,39 @@
+<div class="col-sm-6 col-md-4 col-lg-3">
+    <div ng-class="{gridgreen:data.status>1, gridgrey:data.status===0, gridred:data.status===1}" class="thumbnail ">
+
+        <div class="">
+            <div class="">
+                <strong>{{data.name}}</strong>
+                <span ng-show="data.speech" class="glyphicon glyphicon-volume-up pull-right" title="speech rec"></span>
+            </div>
+            <div class="gridcontent">
+            <div>
+                <span>Call:</span>
+                <span>{{data.numbertocall}}</span>
+            </div>
+            <div>
+                <span>Schedule:</span>
+                <span>{{data.schedule}}</span>
+            </div>
+            <div>
+                <span>hammer:</span>
+                <span>{{data.hammer}}</span>
+            </div>
+            <div>
+                <span>script: </span>
+                <span>{{data.script}}</span>
+            </div>
+
+                <div>
+                    <span> &nbsp;</span>
+
+                    <span class="pull-right glyphicon glyphicon-play action" ng-if="data.status===0" title="enable test">
+
+                    </span>
+                    <span class="pull-right glyphicon glyphicon-ban-circle action" ng-if="data.status>0" title="disable test" ></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
