@@ -222,20 +222,20 @@ angular.module('economy', ['firebase'])
         $scope.openBlog=function(bid){
             $state.go('economy.share',{id:bid});
         }
-    }]).controller("productsCtrl",['$scope','$filter','$state','$firebaseObject','$mdDialog', function($scope,$filter,$state,$firebaseObject,$mdDialog) {
+    }]).controller("productsCtrl",['$scope','$filter','$state','$firebaseObject','$mdDialog','$timeout', function($scope,$filter,$state,$firebaseObject,$mdDialog,$timeout) {
         $scope.colors=["pink","yellow","blue","red","purple","green","lightPurple","yellow","blue"];
         var ref_category = new Firebase("https://cn-ag-products.firebaseio.com");
-        $scope.products = $firebaseObject(ref_category);
+        var products = $firebaseObject(ref_category);
+        console.log($scope.products );
         var foodref=new Firebase("https://cn-ag-details.firebaseio.com");
         $scope.FoodDetail=$firebaseObject(foodref);
         $scope.selection=[];
-        $scope.$watch('products', function (newValue, oldValue) {
-            $scope.selection=[];
-            console.log("change......");
-            if(newValue[0]==null){
+        $timeout(function(){
+            if(products[0]==null){
 
             }else{
-                angular.forEach(newValue[0],function(p){
+
+                angular.forEach(products[0],function(p){
                     p.col=2;
                     p.layout="column";
                     p.row=3*p.products.length;
@@ -244,6 +244,24 @@ angular.module('economy', ['firebase'])
                     } else if(p.products.length>12){
                         p.row=39;
                     }
+                    angular.forEach(p.products,function(d){
+                        if(d.selected){
+                            $scope.selection.push(d.id);
+                        }
+                    });
+
+                });
+                $scope.productsUI=angular.copy(products[0]);
+                console.log($scope.productsUI);
+            }
+        },3000);
+        $scope.$watch('productsUI', function (newValue, oldValue) {
+            $scope.selection=[];
+            console.log("change......");
+            if(newValue==null){
+
+            }else{
+                angular.forEach(newValue,function(p){
                     angular.forEach(p.products,function(d){
                         if(d.selected){
                             $scope.selection.push(d.id);

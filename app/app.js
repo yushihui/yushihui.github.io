@@ -1,7 +1,13 @@
 /**
  * Created by shyu on 3/2/2015.
  */
-var app = angular.module('xchartApp', ['ngAnimate','ngMaterial','ui.router','auto','economy','ngRoute','graphModule','tricksModule']);
+
+var  FIREBASE_API={
+    bitcoin:"https://publicdata-cryptocurrency.firebaseio.com/bitcoin",
+    hackernews:"https://hacker-news.firebaseio.com/v0/"
+
+};
+var app = angular.module('xchartApp', ['ngAnimate','ngMaterial','ui.router','auto','economy','ngRoute','graphModule','tricksModule','firebase','pollModule']);
 app.factory('loadHttpInterceptor', function ($q, $window) {
     return{
 
@@ -36,6 +42,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     $httpProvider.defaults.transformRequest.push(spinnerFunction);
 
     $stateProvider
+        .state('poll', {
+            url: "/poll",
+            templateUrl: "/app/poll/poll.html",
+            controller: 'pollCtrl'
+        })
         .state('auto', {
             url: "/auto",
             templateUrl: "/app/auto/auto.html",
@@ -86,6 +97,16 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             templateUrl: "/app/d3/gridList.html",
             controller:'gridCtrl'
         })
+        .state('d3.users', {
+            url: "/users",
+            templateUrl: "/app/d3/personList.html",
+            controller:'contactsCtrl'
+        })
+        .state('d3.groups', {
+            url: "/groups",
+            templateUrl: "/app/d3/groups.html",
+            controller:'groupsCtrl'
+        })
         .state('economy', {
             url: "/economy",
             templateUrl: "/app/economy/economy.html"
@@ -123,39 +144,64 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
         .otherwise('/');
 
 
-}).controller('homeCtrl', ['$scope','$http','$filter','$rootScope','$mdDialog','$window' ,'$mdSidenav',function($scope,$http,$filter,$rootScope,$mdDialog,$window,$mdSidenav) {
-    $scope.selectProduct="Home";
-    $scope.login = function(ev) {
-        console.log("login..");
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl: '/app/user/login.html',
-            targetEvent: ev
-        })
-    };
+}).controller('homeCtrl', ['$scope','$http','$filter','$rootScope','$mdDialog','$window' ,'$mdSidenav','$firebaseObject',
+    function($scope,$http,$filter,$rootScope,$mdDialog,$window,$mdSidenav,$firebaseObject) {
+        $scope.selectProduct="Home";
+        $scope.bclor="";
+        //var ref_bitcoin = new Firebase(FIREBASE_API.bitcoin);
+        //$scope.bitcoin = $firebaseObject(ref_bitcoin);
+        //    $scope.$watch('bitcoin',function(now,old){
+        //        if(old==null||old.last==null){
+        //            return;
+        //        }
+        //        if(now.last>old.last){
+        //            $scope.bclor="rise";
+        //        }else if(now.last<old.last){
+        //            $scope.bclor="drop";
+        //        }
+        //
+        //    },true);
 
-    $scope.openLeft=function (p) {
-        $scope.selectProduct=p;
-        $mdSidenav('left').toggle();
-    }
-    $scope.logout=function(){
-        $window.localStorage.removeItem("user");
-        $rootScope.isAdmin=false;
-        $rootScope.username="Guest";
-    }
+        //var ref_HN = new Firebase(FIREBASE_API.hackernews);
+        //$scope.Hnews = $firebaseObject(ref_HN);
 
-    $scope.signup = function(ev) {
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl: '/app/user/signup.html',
-            targetEvent: ev
-        })
-            .then(function(answer) {
-                $scope.alert = 'You said the information was "' + answer + '".';
-            }, function() {
-                $scope.alert = 'You cancelled the dialog.';
-            });
-    };
+        //$scope.$watch('bitcoin',function(now,old){
+        //    console.log("Hnews");
+        //    console.log(now);
+        //
+        //})
+
+        $scope.login = function(ev) {
+            console.log("login..");
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/app/user/login.html',
+                targetEvent: ev
+            })
+        };
+
+        $scope.openLeft=function (p) {
+            $scope.selectProduct=p;
+            $mdSidenav('left').toggle();
+        }
+        $scope.logout=function(){
+            $window.localStorage.removeItem("user");
+            $rootScope.isAdmin=false;
+            $rootScope.username="Guest";
+        }
+
+        $scope.signup = function(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/app/user/signup.html',
+                targetEvent: ev
+            })
+                .then(function(answer) {
+                    $scope.alert = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.alert = 'You cancelled the dialog.';
+                });
+        };
 }]);
 function DialogController($scope, $mdDialog,$rootScope,$window) {
     $scope.hide = function() {

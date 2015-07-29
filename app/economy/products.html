@@ -47,7 +47,7 @@
             md-cols-sm="2"  md-cols-lg="8" md-cols-gt-lg="12"
              md-row-height="10px"
             md-gutter="10px" md-gutter-gt-sm="8px" >
-        <md-grid-tile class="{{colors[$index]}}"  ng-repeat="product in products[0] track by $index"
+        <md-grid-tile class="{{colors[$index]}}"  ng-repeat="product in productsUI track by $index"
                       md-rowspan="{{product.row}}" md-colspan="{{product.col}}" md-colspan-sm="1">
             <div layout="{{product.layout}}" style="font-size: 12px;color:#ffffff;top: 2px;">
 

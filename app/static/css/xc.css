@@ -345,7 +345,7 @@ span.action{
     margin-bottom: 4px;
     height: 14px;
 }
-#vw-hoverBox .vw-tipItemValue {
+.vw-tipItemValue {
     font-size: 12px;
     font-weight: bold;
     line-height: 18px;
@@ -354,7 +354,7 @@ span.action{
     float: right;
     display: inline;
 }
-#vw-hoverBox .vw-tipItem {
+.vw-tipItem {
     font-size: 12px;
     line-height: 18px;
     color: #505050;
@@ -380,3 +380,13 @@ span.action{
     margin: 4px 0 0;
     padding: 0;
 }
+.rise{
+    color:greenyellow;
+}
+.drop{
+    color:red;
+}
+@media (min-width: 900px) {
+    .contact-item {
+        float: left;
+        width: 33%; } }

@@ -121,7 +121,6 @@ angular.module('graphModule', [])
                     .range([8, 80])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
-                    console.log(words);
                     svg.append("g")
                         .attr("transform", "translate(400,200)")
                         .selectAll("text")
@@ -146,7 +145,147 @@ angular.module('graphModule', [])
                     .start();
             }
         }
-    }]).directive("bubblepi",['graphService',function(graphService){
+    }]).factory("groupService",function(){
+        var resource;
+        var root,view,node;
+
+        var margin = 20, diameter = 600;
+
+        var colorLeaf = d3.scale.linear()
+            .domain([1, 5])
+            .range(["hsl(13, 100%, 50%)", "hsl(20,100%,70%)"])
+            .interpolate(d3.interpolateHcl);
+
+        var color = d3.scale.linear()
+            .domain([-1, 5])
+            .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+            .interpolate(d3.interpolateHcl);
+
+        var pack = d3.layout.pack()
+            .padding(2)
+            .size([diameter - margin, diameter - margin])
+            .value(function(d) { return d.permissionLevel; })
+
+        var svg ;
+
+        function _init(source){
+            resource=crossfilter(source);
+
+        }
+
+        function _chartData(field){
+            var dimensionClient=resource.dimension(function(d){
+                return d[field];
+            });
+            var groupClients=dimensionClient.group().all();
+
+            _.map(groupClients, function(group){
+                return _.extend(group,{"name":group.key,"children":dimensionClient.filter(group.key).top(Infinity)});
+            });
+            var vw={"name":"Voice Watch"};
+            vw.children=groupClients;
+
+            root=angular.copy(vw);
+
+            //groupClients.dispose();
+            dimensionClient.dispose();
+
+
+        }
+
+        function _draw(){
+            $("#UCHART g").remove();
+            svg = d3.select("#UCHART")
+                .attr("width", diameter)
+                .attr("height", diameter)
+                .append("g")
+                .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+            var focus = root,
+                nodes = pack.nodes(root),
+                view=null;
+
+            var circle = svg.selectAll("circle")
+                .data(nodes)
+                .enter().append("circle")
+                .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+                .style("fill", function(d) { return d.children ? color(d.depth) : ""; })
+
+                .on("click", function(d) {
+                    if (focus !== d) {
+                        console.log(d);
+                        zoom(d);
+                        d3.event.stopPropagation();
+
+                    }
+                });
+            //circle.exit().remove();
+
+            var text = svg.selectAll("text")
+                .data(nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
+                .style("display", function(d) { return d.parent === root ? null : "none"; })
+                .text(function(d) { return d.name; });
+
+            node = svg.selectAll("circle,text");
+
+            d3.select("#UCHART").on("click", function() {
+                zoom(root);
+            });
+
+            zoomTo([root.x, root.y, root.r * 2 + margin],true);
+
+        }
+        function zoom(dd) {
+            var focus0 = focus;
+            focus = dd;
+
+            var transition = d3.transition()
+                .duration(d3.event.altKey ? 7500 : 750)
+                .tween("zoom", function(d) {
+                    var i = d3.interpolateZoom(view, [dd.x, dd.y, dd.r * 2 + margin]);
+                    return function(t) { zoomTo(i(t),false); };
+                });
+
+            transition.selectAll("text")
+                .filter(function(d) { return d.parent === dd || this.style.display === "inline"; })
+                .style("fill-opacity", function(d) { return d.parent === dd ? 1 : 0; })
+                .each("start", function(d) { if (d.parent === dd) this.style.display = "inline"; })
+                .each("end", function(d) { if (d.parent !== dd) this.style.display = "none"; });
+        }
+
+        function zoomTo(v,beauty) {
+            console.log(v[2]);
+            var k = diameter / v[2]; view = v;
+            node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+            if(beauty){
+                svg.selectAll("circle"). transition()
+                    .duration(750)
+                    .delay(function(d, i) { return i * 5; })
+                    .attrTween("r", function(d) {
+                        var i = d3.interpolate(0, d.r*k);
+                        return function(t) { return d.r = i(t); };
+                    });
+            }else{
+                svg.selectAll("circle").attr("r", function(d) {
+                    //	console.log(d.r+"----"+k);
+                    return d.r * k;
+                });
+
+            }
+
+
+        }
+        return {
+            init:_init,
+            chartData:_chartData,
+            draw:_draw
+
+        }
+    })
+    .directive("bubblepi",['graphService',function(graphService){
         return {
             restrict: 'E',
             scope: {
@@ -440,6 +579,26 @@ angular.module('graphModule', [])
         }
 
     }])
+    .controller("groupsCtrl",['$scope','groupService',function($scope,groupService){
+        d3.json("/app/json/u.json", function(error, usersource) {
+            groupService.init(usersource);
+            $scope.draw("clientName");
+        });
+
+        $scope.field="";
+
+        $scope.draw=function(field){
+            $scope.showMap=false;
+            if($scope.field===field){
+                return;
+            }
+            $scope.field=field;
+            groupService.chartData(field);
+            groupService.draw();
+
+        }
+
+    }])
     .controller("bubblePiCtrl",['$scope',function($scope){
         $scope.buildData=function(){
             $scope.data=[];
@@ -529,7 +688,31 @@ angular.module('graphModule', [])
 
         })
 
+    }]).controller("contactsCtrl",['$scope',function($scope){
 
-
+        var loadContacts=function () {
+            var contacts = [
+                'Marina Augustine',
+                'Oddr Sarno',
+                'Nick Giannopoulos',
+                'Narayana Garner',
+                'Anita Gros',
+                'Megan Smith',
+                'Tsvetko Metzger',
+                'Hector Simek',
+                'Some-guy withalongalastaname'
+            ];
+            $scope.contacts= contacts.map(function (c, index) {
+                var cParts = c.split(' ');
+                var contact = {
+                    name: c,
+                    tags:"user,tag",
+                    email: cParts[0][0].toLowerCase() + '.' + cParts[1].toLowerCase() + '@empirix.com',
+                    image: 'http://lorempixel.com/50/50/people?' + index
+                };
+                contact._lowername = contact.name.toLowerCase();
+                return contact;
+            });
+        }();
 
     }])

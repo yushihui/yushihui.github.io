@@ -1,0 +1,140 @@
+
+
+<style>
+    .bar rect {
+        fill: steelblue;
+        shape-rendering: crispEdges;
+    }
+
+    .bar text {
+        fill: #fff;
+    }
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+</style>
+<div layout="row" layout-wrap>
+
+
+
+    <div flex="55" style="padding-right:10px;">
+        <md-content>
+        <strong>Shanghai composite index(%)</strong>
+            <md-button class="md-primary pull-right" style="margin: 0 0 !important" ng-click="displayResult()">
+                <md-tooltip>
+                    shanghai composite index will open at {{s_o}}%
+                </md-tooltip>
+                Predict</md-button>
+            <hr/>
+        <div layout="">
+            <div flex="10" layout="" layout-align="center center">
+                <span class="md-caption">Open  </span>
+            </div>
+            <md-slider flex="70" md-discrete="" ng-model="s_o" step=".1" min="-10" max="10" aria-label="rating">
+            </md-slider>
+            <div flex="20" layout layout-align="center center">
+                <input type="number" ng-model="s_o"  step=".1">
+            </div>
+        </div>
+        <div layout="">
+            <div flex="10" layout="" layout-align="center center">
+                <span class="md-caption">Close  </span>
+            </div>
+            <md-slider flex="70" md-discrete="" ng-model="s_c" step=".1" min="-10" max="10" aria-label="rating">
+            </md-slider>
+            <div flex="20" layout layout-align="center center">
+                <input type="number" ng-model="s_c" aria-label="red" aria-controls="red-slider" step=".1">
+            </div>
+        </div>
+        <!--<div layout="">-->
+            <!--<div  layout="" layout-align="center center">-->
+                <!--<span class="md-body-1">Chart  </span>-->
+            <!--</div>-->
+            <!--<md-slider flex="" md-discrete="" ng-model="s_" step=".1" min="-10" max="10" aria-label="rating">-->
+            <!--</md-slider>-->
+        <!--</div>-->
+        <div layout="">
+            <md-input-container flex="100">
+                <label>take a note</label>
+                <input md-maxlength="100"  ng-model="s_note" >
+
+            </md-input-container>
+        </div>
+
+            <div id="RESULTCHART" ng-show="showResult">
+
+            </div>
+        </md-content>
+        <hr/>
+        
+
+    </div>
+    <div flex="45" >
+        <md-content class="md-padding ">
+            <md-tabs md-dynamic-height md-border-bottom >
+                <md-tab label="NEWS">
+                    <md-content class="md-padding md-caption md-scroll-y" >                   
+                        <md-list>
+                          <md-subheader class="md-no-sticky">Top News</md-subheader>
+                          <md-list-item class="md-2-line" style="min-height:25px !important" ng-repeat="feed in feeds">
+
+                            <p><a ng-href="{{feed.link}}">{{feed.title}}</a> <em>--{{feed.source}}</em></p>
+                          </md-list-item>
+                          <hr>
+
+                        <md-subheader class="md-no-sticky">Wall Street</md-subheader>
+
+                        <div ng-repeat="wsfeed in wsfeeds track by $index">
+                            
+                        
+                          <md-list-item class="md-1-line" style="min-height:25px !important" >
+
+                            <p><a  ng-href="{{wsfeed.link}}">
+                                {{wsfeed.title}}</a> <span id="ic{{$index}}" class="glyphicon glyphicon-menu-down" style="padding-left:5px;" ng-click="toggleContent($index)"></span></p>
+                                
+                          </md-list-item>
+                          <md-list-item   class="md-1-line" id="dt{{$index}}" style="min-height:25px !important; display:none;">
+                          <p >{{wsfeed.content}}</p>
+                          </md-list-item>
+                          </div>
+                      </md-list>
+                    </md-content>
+                </md-tab>
+                <md-tab label="World">
+                    <md-content class="md-padding md-caption md-scroll-y" >
+                        <md-list>
+                            <md-subheader class="md-no-sticky">Top News</md-subheader>
+                            <md-list-item class="md-2-line" style="min-height:25px !important" ng-repeat="feed in feeds">
+
+                                <p><a ng-href="{{feed.link}}">{{feed.title}}</a> <em>--{{feed.source}}</em></p>
+                            </md-list-item>
+                            <hr>
+
+                            <md-subheader class="md-no-sticky">Wall Street</md-subheader>
+
+
+                        </md-list>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Tips">
+                    <md-content class="md-padding md-caption" >
+
+                        <p>Tip 1:  <strong> if open>0 then P(close>0)>50% </strong></p>
+
+                        <p>Tip 2: <strong> if open<0 then P(close<0)>50% </strong> </p>
+
+                         <md-button class="md-primary pull-right" ng-click="openTips()">
+                  
+                            More...</md-button>
+
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>

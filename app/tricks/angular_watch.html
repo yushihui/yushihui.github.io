@@ -16,6 +16,15 @@
             $scope.form.$setPristine();//correct
         </code></pre>
 
+2)
+        <br/>
+                     <pre><code class="language-js"> Javascript code:
+                         $scope.$watch('foo', function() {
+                            $scope.foo = $scope.foo + 1;
+                         });
+                     </code></pre>
+        this could get "Infinite $digest Loop Error"
+
     </md-card-content>
 </md-card>
 
