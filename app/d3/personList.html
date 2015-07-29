@@ -1,0 +1,15 @@
+
+
+<md-list class="fixedRows">
+
+    <md-list-item class="md-2-line contact-item" ng-repeat="contact in contacts"
+                  >
+        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+        <div class="md-list-item-text compact">
+            <h3>{{contact.name}}</h3>
+            <p>{{contact.email}}</p>
+            <p>{{contact.tags}}</p>
+        </div>
+    </md-list-item>
+
+ </md-list>
