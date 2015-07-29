@@ -1,0 +1,64 @@
+[
+  {"name":"user1","clientName":"Empirix","clientID":1,"zone":"US/Eastern","permission":"Empirix Admin","permissionLevel":5},
+
+  {"name":"user2","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user3","clientName":"client2","clientID":2,"zone":"Europe/London","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user4","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user5","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user6","clientName":"client2","clientID":2,"zone":"Europe/London","permission":"Notifier","permissionLevel":2},
+  {"name":"user7","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+
+  {"name":"user8","clientName":"client3","clientID":3,"zone":"US/Eastern","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user9","clientName":"client3","clientID":3,"zone":"Asia/Calcutta","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user10","clientName":"client3","clientID":3,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user11","clientName":"client3","clientID":3,"zone":"Asia/Calcutta","permission":"User","permissionLevel":3},
+  {"name":"user12","clientName":"client3","clientID":3,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user13","clientName":"client3","clientID":3,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+
+
+  {"name":"user15","clientName":"client2","clientID":2,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user16","clientName":"client2","clientID":2,"zone":"Asia/Bangkok","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user17","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user18","clientName":"client2","clientID":2,"zone":"Asia/Bangkok","permission":"User","permissionLevel":3},
+  {"name":"user19","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user20","clientName":"client2","clientID":2,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+
+
+  {"name":"user22","clientName":"client4","clientID":4,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user23","clientName":"client4","clientID":4,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user24","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user25","clientName":"client4","clientID":4,"zone":"Asia/Tokyo","permission":"User","permissionLevel":3},
+  {"name":"user26","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user27","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+  {"name":"user28","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user29","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user21","clientName":"client4","clientID":4,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+
+  {"name":"user32","clientName":"client5","clientID":5,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user33","clientName":"client5","clientID":5,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user34","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user35","clientName":"client5","clientID":5,"zone":"Asia/Tokyo","permission":"User","permissionLevel":3},
+  {"name":"user36","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user37","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+  {"name":"user38","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user39","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user31","clientName":"client5","clientID":5,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+
+  {"name":"user42","clientName":"client6","clientID":6,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user43","clientName":"client6","clientID":6,"zone":"Asia/Tokyo","permission":"Customer Admin","permissionLevel":4},
+  {"name":"user44","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user45","clientName":"client6","clientID":6,"zone":"Asia/Tokyo","permission":"User","permissionLevel":3},
+  {"name":"user46","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user47","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1},
+  {"name":"user48","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"User","permissionLevel":3},
+  {"name":"user49","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"Notifier","permissionLevel":2},
+  {"name":"user41","clientName":"client6","clientID":6,"zone":"US/Eastern","permission":"OneSight User","permissionLevel":1}
+
+
+
+
+
+
+
+
+]
