@@ -102,8 +102,6 @@ angular.module('graphModule', [])
             drawBubblePi:_bubblePi
         }
 
-
-
     }]).directive("wordMap",['graphService',function(graphService){
         var fill = d3.scale.category20();
         return {
@@ -112,7 +110,6 @@ angular.module('graphModule', [])
                 width:'=',
                 data:'=',
                 height:'='
-
             },
             template: "<svg></svg>",
             link:function($scope, ele, attrs){
@@ -186,11 +183,7 @@ angular.module('graphModule', [])
             vw.children=groupClients;
 
             root=angular.copy(vw);
-
-            //groupClients.dispose();
             dimensionClient.dispose();
-
-
         }
 
         function _draw(){
@@ -219,8 +212,6 @@ angular.module('graphModule', [])
 
                     }
                 });
-            //circle.exit().remove();
-
             var text = svg.selectAll("text")
                 .data(nodes)
                 .enter().append("text")
@@ -284,8 +275,152 @@ angular.module('graphModule', [])
             draw:_draw
 
         }
-    })
-    .directive("bubblepi",['graphService',function(graphService){
+    }).factory('globalService',[function(){
+
+        var diameter = 800,
+            radius = diameter / 2,
+            innerRadius = radius - 100;
+
+        var cluster = d3.layout.cluster()
+            .size([360, innerRadius])
+            .sort(null)
+            .value(function(d) { return d.size; });
+
+        var bundle = d3.layout.bundle();
+
+        var line = d3.svg.line.radial()
+            // .interpolate("cardinal")
+            .interpolate("bundle")
+            .tension(0.85)
+            .radius(function(d) { return d.y; })
+            .angle(function(d) { return d.x / 180 * Math.PI; });
+        var svg,link ,node ;
+
+        function _init(source){
+            svg =  d3.select("#VWCHART")
+                .attr("width", diameter)
+                .attr("height", diameter)
+                .append("g")
+                .attr("transform", "translate(" + radius + "," + radius + ")");
+            svg.append("circle").attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", innerRadius);
+            link = svg.append("g").selectAll(".link");
+            node = svg.append("g").selectAll(".node");
+
+
+
+        }
+
+        function _draw(classes){
+
+            var nodes = cluster.nodes(packageHierarchy(classes)),
+                links = packageImports(nodes);
+            link = link
+                .data(bundle(links))
+                .enter().append("path")
+                .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+
+                .attr("class", "link")
+                .attr("d", line).style("stroke-width",2);
+
+            node = node
+                .data(nodes)
+                .enter().append("text")
+                .attr("class", "node")
+                // .attr("class", function(d){
+                //     if(d.key.indexOf("test5")===0){
+                //        return "node testnode";
+                //     }else{
+                //         return "node";
+                //     }
+                // })
+                .attr("dy", ".31em")
+                .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+                .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+                .text(function(d) { return d.key; })
+                .on("mouseover", _mouseovered)
+                .on("mouseout", _mouseouted);
+
+
+        }
+
+        function _mouseovered(d) {
+            node
+                .each(function(n) { n.target = n.source = false; });
+
+            link
+                .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+                .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+                .filter(function(l) { return l.target === d || l.source === d; })
+                .each(function() { this.parentNode.appendChild(this); });
+
+            node
+                .classed("node--target", function(n) { return n.target; })
+                .classed("node--source", function(n) { return n.source; });
+        }
+
+        function _mouseouted(d) {
+            link
+                .classed("link--target", false)
+                .classed("link--source", false);
+
+            node
+                .classed("node--target", false)
+                .classed("node--source", false);
+        }
+
+        d3.select(self.frameElement).style("height", diameter + "px");
+
+        // Lazily construct the package hierarchy from class names.
+        function packageHierarchy(classes) {
+            var map = {};
+
+            function find(name, data) {
+                var node = map[name], i;
+                if (!node) {
+                    node = map[name] = data || {name: name, children: []};
+                    if (name.length) {
+                        node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+                        node.parent.children.push(node);
+                        node.key = name.substring(i + 1);
+                    }
+                }
+                return node;
+            }
+
+            classes.forEach(function(d) {
+                find(d.name, d);
+            });
+
+            return map[""];
+        }
+
+        // Return a list of imports for the given array of nodes.
+        function packageImports(nodes) {
+            var map = {},
+                imports = [];
+
+            // Compute a map from name to node.
+            nodes.forEach(function(d) {
+                map[d.name] = d;
+            });
+
+            // For each import, construct a link from the source to target node.
+            nodes.forEach(function(d) {
+                if (d.imports) d.imports.forEach(function(i) {
+                    imports.push({source: map[d.name], target: map[i]});
+                });
+            });
+
+            return imports;
+        }
+        return {
+            init:_init,
+            draw:_draw
+        }
+
+    }]).directive("bubblepi",['graphService',function(graphService){
         return {
             restrict: 'E',
             scope: {
@@ -598,6 +733,12 @@ angular.module('graphModule', [])
 
         }
 
+    }])
+    .controller("globalCtrl",['$scope','globalService',function($scope,globalService){
+        d3.json("/app/json/vw.json", function(error, data) {
+            globalService.init();
+            globalService.draw(data);
+        });
     }])
     .controller("bubblePiCtrl",['$scope',function($scope){
         $scope.buildData=function(){

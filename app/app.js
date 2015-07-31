@@ -107,6 +107,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             templateUrl: "/app/d3/groups.html",
             controller:'groupsCtrl'
         })
+        .state('d3.global', {
+            url: "/global",
+            templateUrl: "/app/d3/global.html",
+            controller:'globalCtrl'
+        })
         .state('economy', {
             url: "/economy",
             templateUrl: "/app/economy/economy.html"

@@ -1,0 +1,53 @@
+
+<h2>Lucene </h2>
+<table>
+    <tr>
+        <td valign="middle" align="right" rowspan="1">
+            score(q,d) &nbsp; = &nbsp;
+            <a href="#formula_coord"><font color="#FF9933">coord(q,d)</font></a> &nbsp;·&nbsp;
+            <a href="#formula_queryNorm"><font color="#FF33CC">queryNorm(q)</font></a> &nbsp;·&nbsp;
+        </td>
+        <td valign="bottom" align="center" rowspan="1" style="text-align: center">
+            <big><big><big>∑</big></big></big>
+        </td>
+        <td valign="middle" align="right" rowspan="1">
+            <big><big>(</big></big>
+            <a href="#formula_tf"><font color="#993399">tf(t in d)</font></a> &nbsp;·&nbsp;
+            <a href="#formula_idf"><font color="#993399">idf(t)</font></a><sup>2</sup> &nbsp;·&nbsp;
+            <a href="#formula_termBoost"><font color="#CCCC00">t.getBoost()</font></a>&nbsp;·&nbsp;
+            <a href="#formula_norm"><font color="#3399FF">norm(t,d)</font></a>
+            <big><big>)</big></big>
+        </td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        1)  tf(t in d)   =  	frequency½
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="2" cellspacing="2" border="0" align="center" style="width:auto">
+                <tbody><tr>
+                    <td valign="middle" align="right">
+                        <code>idf(t)</code>&nbsp; = &nbsp;
+                    </td>
+                    <td valign="middle" align="center">
+                        1 + log <big>(</big>
+                    </td>
+                    <td valign="middle" align="center">
+                        <table>
+                            <tbody><tr><td align="center" style="text-align: center"><small>numDocs</small></td></tr>
+                            <tr><td align="center" style="text-align: center">–––––––––</td></tr>
+                            <tr><td align="center" style="text-align: center"><small>docFreq+1</small></td></tr>
+                            </tbody></table>
+                    </td>
+                    <td valign="middle" align="center">
+                        <big>)</big>
+                    </td>
+                </tr>
+                </tbody></table>
+        </td>
+    </tr>
+</table>

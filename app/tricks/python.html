@@ -1,0 +1,44 @@
+
+<md-card >
+
+    <md-card-content>
+        <h2 class="md-title">Javascript variable scope</h2>
+        <p>
+            JavaScript does not implement block scoping so the i in the inner loop is
+            the same i used by the the outer loop. Therefore it gets reset by the inner
+            loop thus and can never end the outer loop.
+        </p>
+
+        <pre><code class="language-python">
+            clf = GaussianNB()
+            clf.fit(features_train[1:10000], labels_train[1:10000])
+            result=clf.predict(features_test)
+
+        </code></pre>
+
+
+
+    </md-card-content>
+</md-card>
+
+<table>
+    <tr>
+        <td valign="middle" align="right" rowspan="1">
+            score(q,d) &nbsp; = &nbsp;
+            <a href="#formula_coord"><font color="#FF9933">coord(q,d)</font></a> &nbsp;·&nbsp;
+            <a href="#formula_queryNorm"><font color="#FF33CC">queryNorm(q)</font></a> &nbsp;·&nbsp;
+        </td>
+        <td valign="bottom" align="center" rowspan="1" style="text-align: center">
+            <big><big><big>∑</big></big></big>
+        </td>
+        <td valign="middle" align="right" rowspan="1">
+            <big><big>(</big></big>
+            <a href="#formula_tf"><font color="#993399">tf(t in d)</font></a> &nbsp;·&nbsp;
+            <a href="#formula_idf"><font color="#993399">idf(t)</font></a><sup>2</sup> &nbsp;·&nbsp;
+            <a href="#formula_termBoost"><font color="#CCCC00">t.getBoost()</font></a>&nbsp;·&nbsp;
+            <a href="#formula_norm"><font color="#3399FF">norm(t,d)</font></a>
+            <big><big>)</big></big>
+        </td>
+    </tr>
+
+</table>

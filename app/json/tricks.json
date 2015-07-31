@@ -1,4 +1,8 @@
 [
   {"id":"angular_dirty","name":"Angular $dirty vs $pristine","tags":["AngularJs","js"]},
-  {"id":"angular_watch","name":"angular watch","tags":["AngularJs","js"]}
+  {"id":"angular_watch","name":"angular watch","tags":["AngularJs","js"]},
+  {"id":"d3","name":"d3 style","tags":["D3","js"]},
+  {"id":"python","name":"Machine leaning with scikit-learn","tags":["python","machine learning"]},
+  {"id":"lucene","name":"Lucene","tags":["Lucene","Similarity"]},
+  {"id":"vmware","name":"VmWare ","tags":["Monitoring","machine learning"]}
 ]

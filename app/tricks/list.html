@@ -7,8 +7,7 @@
             <md-item ng-repeat="blog in blogs" ng-click="openBlog(blog.id)">
                 <md-item-content>
                     <div class="md-tile-content">
-                        <h3>{{blog.date}}</h3>
-                        <h3><strong>{{blog.name}}</strong></h3>
+                        <h4><strong>{{blog.name}}</strong></h4>
                         <p>
                             {{blog.summary}}
                         </p>
@@ -20,7 +19,7 @@
                         </md-chips>
                     </div>
                 </md-item-content>
-                <md-divider ng-if="!$last"></md-divider>
+
             </md-item>
         </md-list>
     </section>
