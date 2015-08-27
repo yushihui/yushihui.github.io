@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="xchartApp">
+<html lang="en" ng-app="xchartApp" ng-cloak>
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!--<link rel="stylesheet" href="/app/static/css/bootstrap.min.css">-->
@@ -15,8 +15,8 @@
 </head>
 <body layout="row">
 
-<md-sidenav layout="column" hide-smstyle="overflow: hidden; display: flex;" class="site-sidenav md-sidenav-left md-whiteframe-z2 ng-isolate-scope md-locked-open md-closed" md-component-id="left"
-            md-is-locked-open="$media('gt-sm')" tabindex="-1">
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2 ng-isolate-scope md-locked-open md-closed" md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1">
 
     <md-toolbar class="md-default-theme">
         <h1 class="md-toolbar-tools">
