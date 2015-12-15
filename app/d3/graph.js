@@ -856,4 +856,75 @@ angular.module('graphModule', [])
             });
         }();
 
-    }])
+    }]).controller("networkCtrl",['$scope',function($scope){
+
+
+    }]).directive('network', [function(){
+        // Runs during compile
+        return {
+            // name: '',
+            // priority: 1,
+            // terminal: true,
+            scope: {source:"@"}, // {} = isolate, true = child, false/undefined = no change
+            // controller: function($scope, $element, $attrs, $transclude) {},
+            // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+             restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+             template: '<div></div>',
+            // templateUrl: '',
+            // replace: true,
+            // transclude: true,
+            // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+            link: function($scope, element, iAttrs, controller) {
+
+                var svg = d3.select(element[0]).insert("svg")
+                    .attr("width", 800)
+                    .attr("height", 800);
+                var force = d3.layout.force()
+                    .gravity(.05)
+                    .distance(100)
+                    .charge(-100)
+                    .size([800, 800]);
+                    console.log($scope.source);
+                  //"/app/json/net.json"  
+                d3.json($scope.source, function(error, json) {
+                force
+                      .nodes(json.nodes)
+                      .links(json.links)
+                      .start();
+
+                  var link = svg.selectAll(".link")
+                      .data(json.links)
+                    .enter().append("line")
+                      .attr("class", "link");
+
+                  var node = svg.selectAll(".node")
+                      .data(json.nodes)
+                    .enter().append("g")
+                      .attr("class", "node")
+                      .call(force.drag);
+
+                  node.append("image")
+                      .attr("xlink:href", "https://github.com/favicon.ico")
+                      .attr("x", -8)
+                      .attr("y", -8)
+                      .attr("width", 16)
+                      .attr("height", 16);
+
+                  node.append("text")
+                      .attr("dx", 12)
+                      .attr("dy", ".35em")
+                      .text(function(d) { return d.name });
+
+                  force.on("tick", function() {
+                    link.attr("x1", function(d) { return d.source.x; })
+                        .attr("y1", function(d) { return d.source.y; })
+                        .attr("x2", function(d) { return d.target.x; })
+                        .attr("y2", function(d) { return d.target.y; });
+
+                    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                  });
+              });
+                
+            }
+        };
+    }]);
