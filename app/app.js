@@ -112,6 +112,11 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
             templateUrl: "/app/d3/global.html",
             controller:'globalCtrl'
         })
+        .state('d3.network', {
+            url: "/network",
+            templateUrl: "/app/d3/network.html",
+            controller:'networkCtrl'
+        })
         .state('economy', {
             url: "/economy",
             templateUrl: "/app/economy/economy.html"
