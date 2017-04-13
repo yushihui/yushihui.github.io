@@ -114,7 +114,7 @@ angular.module('graphModule', [])
             template: "<svg></svg>",
             link:function($scope, ele, attrs){
                 var fsize = d3.scale.linear()
-                    .domain([5, 120])
+                    .domain([4, 216])
                     .range([8, 80])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
@@ -768,8 +768,7 @@ angular.module('graphModule', [])
 
     }]).controller("wdCtrl",['$scope',function($scope){
         $scope.buildWordData=function(){
-            $scope.worddata= [{text:'size',size:2716},
-{text:'text',size:2716},
+            $scope.worddata= [
 {text:'开发',size:261},
 {text:'功能',size:170},
 {text:'模块',size:167},
