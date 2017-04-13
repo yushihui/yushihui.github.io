@@ -135,7 +135,7 @@ angular.module('graphModule', [])
 
                 d3.layout.cloud().size([800, 400])
                     .words($scope.data)
-                    .rotate(function() { return ~~(Math.random() * 2) * 60; })
+                    //.rotate(function() { return ~~(Math.random() * 2) * 60; })
                     .font("Impact")
                     .fontSize(function(d) { return d.size; })
                     .on("end", draw)
