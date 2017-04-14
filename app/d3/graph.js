@@ -114,7 +114,7 @@ angular.module('graphModule', [])
             template: "<svg></svg>",
             link:function($scope, ele, attrs){
                 var fsize = d3.scale.linear()
-                    .domain([2, 273])
+                    .domain([2, 200])
                     .range([7, 60])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
@@ -774,8 +774,7 @@ angular.module('graphModule', [])
 {text:'减少',size:32},
 {text:'更好',size:31},
 {text:'维护',size:30},
-{text:' ss ',size:275},
-{text:'开发',size:272},
+{text:'开发',size:180},
 {text:'需求',size:173},
 {text:'功能',size:171},
 {text:'模块',size:167},
