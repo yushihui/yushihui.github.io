@@ -114,7 +114,7 @@ angular.module('graphModule', [])
             template: "<svg></svg>",
             link:function($scope, ele, attrs){
                 var fsize = d3.scale.linear()
-                    .domain([4, 272])
+                    .domain([4, 282])
                     .range([8, 80])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
