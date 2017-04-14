@@ -115,7 +115,7 @@ angular.module('graphModule', [])
             link:function($scope, ele, attrs){
                 var fsize = d3.scale.linear()
                     .domain([2, 300])
-                    .range([7, 82])
+                    .range([7, 78])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
                     svg.append("g")
@@ -769,6 +769,11 @@ angular.module('graphModule', [])
     }]).controller("wdCtrl",['$scope',function($scope){
         $scope.buildWordData=function(){
             $scope.worddata= [
+                {text:'总结',size:33},
+{text:'增加',size:33},
+{text:'减少',size:32},
+{text:'更好',size:31},
+{text:'维护',size:30},
 {text:'开发',size:272},
 {text:'需求',size:173},
 {text:'功能',size:171},
@@ -825,11 +830,7 @@ angular.module('graphModule', [])
 {text:'效率',size:35},
 {text:'前端',size:33},
 {text:'讨论',size:33},
-{text:'总结',size:33},
-{text:'增加',size:33},
-{text:'减少',size:32},
-{text:'更好',size:31},
-{text:'维护',size:30},
+
 {text:'理解',size:30},
 {text:'处理',size:30},
 {text:'更多',size:29},
