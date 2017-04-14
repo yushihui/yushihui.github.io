@@ -774,7 +774,7 @@ angular.module('graphModule', [])
 {text:'减少',size:32},
 {text:'更好',size:31},
 {text:'维护',size:30},
-{text:'开发',size:180},
+{text:'开发',size:174},
 {text:'需求',size:173},
 {text:'功能',size:171},
 {text:'模块',size:167},
