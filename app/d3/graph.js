@@ -114,8 +114,8 @@ angular.module('graphModule', [])
             template: "<svg></svg>",
             link:function($scope, ele, attrs){
                 var fsize = d3.scale.linear()
-                    .domain([4, 282])
-                    .range([8, 80])
+                    .domain([2, 300])
+                    .range([7, 82])
                 var svg=d3.select(ele[0].firstChild).attr('width', $scope.width).attr('height',$scope.height );
                 var draw= function(words) {
                     svg.append("g")
@@ -1879,7 +1879,7 @@ angular.module('graphModule', [])
 {text:'拖动',size:2},
 {text:'欣慰',size:2},
 {text:'优雅',size:2},
-{text:'表明',size:2},];
+{text:'表明',size:2}];
             $scope.tests=[];
             var rnd=function (size) {
                 var num=Math.floor(Math.random() * 1000);
